@@ -1,3 +1,18 @@
+import threading
+import subprocess
+import sys
+
+# === Запуск вебхука в отдельном процессе ===
+def run_webhook():
+    subprocess.Popen([sys.executable, "cryptobot_webhook.py"])
+
+# Стартуем вебхук до запуска бота
+threading.Thread(target=run_webhook, daemon=True).start()
+
+# === Импорт и запуск основного кода бота ===
+# Всё, что было в bot.py, оставляешь как есть ниже
+
+
 from dotenv import load_dotenv
 import os
 
