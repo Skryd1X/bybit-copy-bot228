@@ -1112,10 +1112,6 @@ async def main():
     logging.info("✅ Бот запущен.")
     await application.run_polling()
 
-if __name__ == "__main__":
-    import nest_asyncio
-    nest_asyncio.apply()
-
     # Безопасный тест
     try:
         from cryptobot_payment import create_invoice
@@ -1125,11 +1121,16 @@ if __name__ == "__main__":
 
     asyncio.run(main())
 
-
 # 🚀 Запуск
 if __name__ == "__main__":
-    from cryptobot_payment import create_invoice
-    print(create_invoice(1, "USDT", "Test", "payload_test"))
     import nest_asyncio
     nest_asyncio.apply()
+
+    # При желании можно один раз протестировать создание счёта
+    try:
+        from cryptobot_payment import create_invoice
+        print(create_invoice(1, "USDT", "Test", "payload_test"))
+    except Exception as e:
+        logging.warning(f"⚠️ Ошибка при тестовом создании инвойса: {e}")
+
     asyncio.run(main())
