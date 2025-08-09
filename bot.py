@@ -1123,14 +1123,14 @@ async def main():
 
 # 🚀 Запуск
 if __name__ == "__main__":
-    import nest_asyncio
+    import nest_asyncio, os
     nest_asyncio.apply()
 
-    # При желании можно один раз протестировать создание счёта
-    try:
-        from cryptobot_payment import create_invoice
-        print(create_invoice(1, "USDT", "Test", "payload_test"))
-    except Exception as e:
-        logging.warning(f"⚠️ Ошибка при тестовом создании инвойса: {e}")
+    if os.getenv("CREATE_TEST_INVOICE_ON_START", "false").lower() == "true":
+        try:
+            from cryptobot_payment import create_invoice
+            print(create_invoice(1, "USDT", "Test", "payload_test"))
+        except Exception as e:
+            logging.warning(f"⚠️ Ошибка при тестовом создании инвойса: {e}")
 
     asyncio.run(main())
